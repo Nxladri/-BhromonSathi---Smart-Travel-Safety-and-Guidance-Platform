@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sundarban Sentinel — Safety Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="logo-icon">🐯</div>
+      <span class="logo-text">BhromonSathi -  Smart Travel Safety and Guidance Platform</span>
+    </div>
+    <div class="nav-links">
+      <a href="#hero" class="nav-link active">Dashboard</a>
+      <a href="#discover" class="nav-link">Discover</a>
+      <a href="#hazards" class="nav-link">Hazards</a>
+      <a href="#dashboard" class="nav-link">Reports</a>
+      <a href="#emergency" class="nav-link">Safety Kit</a>
+    </div>
+    <button class="btn-offline">Go Offline</button>
+  </nav>
+
+  <section id="hero" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Live Safety Intelligence
+        </div>
+        <h1>
+          Adventure into the<br />
+          <span class="accent">Sundarbans</span><br />
+          Stay One Step Ahead
+        </h1>
+        <p class="hero-desc">
+          Premium eco-tourism guidance meets real-time risk intelligence.
+          Royal Bengal Tigers, tidal rivers, monsoon trails — explore with confidence.
+        </p>
+
+        <div class="input-panel">
+          <div class="input-row">
+            <div class="input-group">
+              <label>Zone</label>
+              <input type="text" id="zoneSelect" placeholder="e.g. Jharkhali, Dobanki..." />
+            </div>
+            <div class="input-group">
+              <label>Month</label>
+              <input type="text" id="monthSelect" placeholder="e.g. January, July..." />
+            </div>
+          </div>
+          <div class="input-actions">
+            <button class="btn-primary" onclick="runAssessment()">+ Open Live Dashboard</button>
+            <button class="btn-secondary" onclick="loadEmergency(), downloadOfflineKit()">Download Offline Kit</button>
+          </div>
+          <p id="statusMsg" class="status-msg"></p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="floating-card">
+          <div class="card-icon risk">🛡️</div>
+          <div class="card-body">
+            <div class="card-label">Zone Risk Level</div>
+            <div class="card-value" id="heroRiskZone">—</div>
+            <div class="risk-bar">
+              <div class="risk-fill" id="heroRiskBar" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card">
+          <div class="card-icon weather">🌧️</div>
+          <div class="card-body">
+            <div class="card-label">Monsoon Watch</div>
+            <div class="card-value" id="heroWeather">Select zone & month</div>
+          </div>
+        </div>
+
+        <div class="floating-card">
+          <div class="card-icon boat">🚤</div>
+          <div class="card-body">
+            <div class="card-label">Combined Risk</div>
+            <div class="card-value" id="heroCombined">—</div>
+          </div>
+        </div>
+
+        <div class="floating-card chat-card">
+          <div class="chat-card-header">
+            <div class="card-icon chat">💬</div>
+            <div>
+              <div class="card-label">Ask your sathi</div>
+              <div class="chat-sub" id="chatZoneLabel">Zone: not selected</div>
+            </div>
+          </div>
+          <div id="chatMessages" class="chat-messages">
+            <div class="chat-msg bot">
+              Enter a zone above, then ask me anything — e.g. "Is it safe for elderly visitors?"
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Ask about hazards..." onkeypress="if(event.key==='Enter') sendChatMessage()" />
+            <button class="chat-send" onclick="sendChatMessage()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="discover" class="section discover-section">
+    <div class="section-header">
+      <div class="section-badge">EXPLORE THE DELTA</div>
+      <h2>Discover Sundarbans</h2>
+      <p>History, wildlife, local life and culture — know the land before you enter it.</p>
+    </div>
+
+    <div class="discover-wrap">
+      <div class="discover-card discover-wide">
+        <div class="discover-photo photo-history">🏛️</div>
+        <div class="discover-body">
+          <h3>Why Sundarbans is Famous</h3>
+          <p>
+            The world’s largest mangrove forest and a UNESCO World Heritage Site.
+            From early settlements to modern conservation, it remains a unique tidal ecosystem
+            of creeks, islands, and the legendary Royal Bengal Tiger.
+          </p>
+        </div>
+      </div>
+
+      <div class="discover-grid">
+        <div class="discover-card">
+          <div class="discover-photo photo-tiger">🐯</div>
+          <div class="discover-body">
+            <h3>Royal Bengal Tiger</h3>
+            <p>Home to swimming tigers, crocodiles, deer and rich biodiversity. Stay on guided routes for safety.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-honey">🍯</div>
+          <div class="discover-body">
+            <h3>Honey Collectors’ Risk</h3>
+            <p>Local Mouli face real danger from tigers, crocodiles and terrain while collecting wild honey in deep forest routes.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-flood">🌊</div>
+          <div class="discover-body">
+            <h3>Flood & Cyclone Risk</h3>
+            <p>The delta faces cyclones and tidal surges. Mangroves act as a natural shield for inland communities.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-boat">🚤</div>
+          <div class="discover-body">
+            <h3>Travel & Tourism</h3>
+            <p>Most exploration is by licensed boat through tidal creeks and watchtowers like Sajnekhali and Dobanki.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="discover-grid">
+        <div class="discover-card">
+          <div class="discover-photo photo-tiger2">🐅</div>
+          <div class="discover-body">
+            <h3>Tiger Behavior</h3>
+            <p>Sundarbans tigers are strong swimmers adapted to brackish water and dense mangrove terrain.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-climate">🌡️</div>
+          <div class="discover-body">
+            <h3>Climate Change</h3>
+            <p>Rising seas, salinity and erosion threaten land and mangrove cover across the delta.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-culture">🙏</div>
+          <div class="discover-body">
+            <h3>Folk Legends & Culture</h3>
+            <p>Shared traditions around Bonbibi reflect the deep bond between forest communities and the jungle.</p>
+          </div>
+        </div>
+        <div class="discover-card">
+          <div class="discover-photo photo-ilish">🐟</div>
+          <div class="discover-body">
+            <h3>Ilish & River Culture</h3>
+            <p>Hilsa is central to Bengal’s food heritage and seasonal river festivals across the delta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hazards" class="section hazards-section">
+    <div class="section-header">
+      <div class="section-badge">KNOW BEFORE YOU GO</div>
+      <h2>Hazard Awareness</h2>
+      <p>Quick field guides for the most important risks in the mangrove delta.</p>
+    </div>
+    <div class="hazard-grid">
+      <div class="hazard-card">
+        <div class="hazard-icon">🐯</div>
+        <h3>Royal Bengal Tiger</h3>
+        <p>Never walk alone at dawn or dusk. Stay away from water edges. Follow guide instructions.</p>
+      </div>
+      <div class="hazard-card">
+        <div class="hazard-icon">🐊</div>
+        <h3>Estuarine Crocodile</h3>
+        <p>Do not swim or wade. Keep limbs inside boats. Watch floating logs carefully.</p>
+      </div>
+      <div class="hazard-card">
+        <div class="hazard-icon">🐍</div>
+        <h3>Venomous Snakes</h3>
+        <p>Wear high boots on trails. Probe leaf litter carefully. Carry basic first-aid readiness.</p>
+      </div>
+      <div class="hazard-card">
+        <div class="hazard-icon">🦟</div>
+        <h3>Mosquitoes & Insects</h3>
+        <p>Use repellent. Prefer full sleeves after evening. Consider medical advice for longer stays.</p>
+      </div>
+      <div class="hazard-card">
+        <div class="hazard-icon">🌿</div>
+        <h3>Mangrove Terrain</h3>
+        <p>Soft mud and roots can trap feet. Stay on marked boardwalks and designated paths.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="section dashboard-section">
+    <div class="section-header light">
+      <div class="section-badge light">LIVE INTELLIGENCE</div>
+      <h2>Field Dashboard</h2>
+      <p>Risk, weather and emergency status for your selected zone.</p>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-top"><span class="dash-icon">⚠️</span><span class="dash-title">Wildlife & Weather Risk</span></div>
+        <div class="dash-main" id="dashCombined">—</div>
+        <div class="dash-sub" id="dashDetail">Select a zone to load data</div>
+        <div class="dash-tags">
+          <span class="tag" id="tagRain">Rainfall: —</span>
+          <span class="tag" id="tagWind">Wind: —</span>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-top"><span class="dash-icon">🌤️</span><span class="dash-title">Weather Pulse</span></div>
+        <div class="dash-main" id="dashRainfall">—</div>
+        <div class="dash-sub" id="dashWind">Avg rainfall & wind</div>
+        <div class="dash-tags"><span class="tag green" id="tagYears">Years of data: —</span></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-top"><span class="dash-icon">📶</span><span class="dash-title">Zone Info</span></div>
+        <div class="dash-main" id="dashZone">—</div>
+        <div class="dash-sub" id="dashMonth">Month not selected</div>
+        <div class="dash-tags"><span class="tag" id="tagNotice">Ready</span></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-top"><span class="dash-icon">🆘</span><span class="dash-title">Emergency Desk</span></div>
+        <div class="dash-main red">24/7</div>
+        <div class="dash-sub">Forest helpline guidance active</div>
+        <div class="dash-tags"><span class="tag green">Response ready</span></div>
+      </div>
+    </div>
+
+    <div class="precautions-panel">
+      <h3>Safety Precautions</h3>
+      <div id="precautionsList" class="precautions-list">
+        <p class="placeholder">Select a zone and run assessment to load precautions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="emergency" class="section emergency-section">
+    <div class="section-header light">
+      <div class="section-badge light">SAFETY KIT</div>
+      <h2>Emergency Centers</h2>
+      <p>Key emergency reference points for the Sundarbans region.</p>
+    </div>
+    <div class="emergency-layout">
+      <div id="emergencyList" class="emergency-list">
+        <p class="placeholder">Click “Download Offline Kit” or load emergency data.</p>
+      </div>
+      <div class="emergency-side">
+        <div class="helpline-card">
+          <div class="helpline-num">112 / 100 / 108</div>
+          <div class="helpline-label">National Emergency Numbers</div>
+          <p>Dial these numbers in any emergency. Save offline before entering low-network zones.</p>
+        </div>
+        <div class="advisory-card">
+          <h4>🌧️ Rainfall Advisory</h4>
+          <p>Always check zone-month risk before boat travel. Prefer covered launches in high-rainfall months.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">Sundarban Sentinel</div>
+    <p>Adventure + Nature + Safety + Intelligence</p>
+  </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+PrecautionID,ScopeType,LocationName,Phase,Category,Description
+1,General,,BeforeTrip,Weather,"Check weather and monsoon/storm advisories for the specific week, not just the season."
+2,General,,BeforeTrip,Permit,Register with local tourism office / forest department where required before entering core zones.
+3,General,,BeforeTrip,Documentation,"Carry printed copies of ID, permits, and emergency contacts — do not rely only on phone storage."
+4,General,,BeforeTrip,Itinerary,"Inform a family member or friend of the exact itinerary, stops, and expected return date."
+5,General,,BeforeTrip,Offline Prep,Download offline maps and emergency content before leaving network coverage.
+6,General,,BeforeTrip,Medical,"Carry a basic first-aid kit: antiseptic, bandages, anti-allergy tablets, ORS packets, personal prescriptions."
+7,General,,BeforeTrip,Medical,Carry mosquito repellent; consult a doctor about malaria prophylaxis for multi-day trips.
+8,General,,BeforeTrip,Power,Fully charge your phone and carry a power bank — charging is unreliable at remote homestays.
+9,General,,BeforeTrip,Signal Tool,Carry a physical whistle as a no-battery way to signal for help.
+10,General,,BeforeTrip,Awareness,Note the last point of network signal on your route before it drops.
+11,General,,DuringTrip,Group Safety,"Keep at least one person in the group aware of exact real-time location, even without signal."
+12,General,,DuringTrip,Group Safety,"Never split up in a no-network zone, even for a few minutes."
+13,General,,DuringTrip,Orientation,Identify the nearest facility (health post/police/forest office) immediately upon arrival at each new stop.
+14,General,,DuringTrip,Contacts,"Keep local emergency contacts (boatman, guide, homestay host) saved digitally and written on paper as backup."
+15,General,,DuringTrip,Photography,"Avoid risky photography spots (cliff edges, riverbanks, close wildlife shots) — many trip injuries come from photo-taking, not the 'expected' hazards."
+16,General,,DuringTrip,Footwear,"Wear closed, ankle-covering footwear at all times outside the boat."
+17,General,,Emergency,Snake Bite,"Keep the person still, keep the bite area below heart level. Do NOT cut or suck the wound. Move toward help calmly but immediately."
+18,General,,Emergency,Fall/Injury,Do not attempt to self-treat a suspected fracture — immobilize the area and prioritize evacuation.
+19,General,,Emergency,Sudden Storm,Get to the nearest solid shelter immediately — do not wait to finish the current activity or boat ride.
+20,General,,Emergency,Lost/Separated,Stay in place rather than wandering further. Use whistle signals. Activate any available offline SOS feature.
+21,General,,Emergency,Medical,Know in advance whether your situation needs the nearest primary health center or requires direct evacuation to a larger hospital.
+22,ZoneSpecific,Sajnekhali,DuringTrip,Tide,"Confirm boat departure/return timing with the boatman directly — schedules here are tide-based, not fixed-clock."
+23,ZoneSpecific,Sajnekhali,DuringTrip,Wildlife,Avoid walking near creek edges or watchtower peripheries alone — crocodile proximity increases in monsoon.
+24,ZoneSpecific,Sudhanyakhali,DuringTrip,Wildlife,Maintain distance from the watchtower's creek-facing edge — known crocodile basking area directly below.
+25,ZoneSpecific,Dobanki,DuringTrip,Terrain,Never step off the marked wooden plank path near the canopy walk — pneumatophores (sharp mangrove roots) are a real trip/injury hazard.
+26,ZoneSpecific,Dobanki,DuringTrip,Tide,"This stop is strictly tide-dependent — confirm return timing before starting the canopy walk, not after."
+27,ZoneSpecific,Netidhopani,BeforeTrip,Planning,"Build in extra buffer time — this is the farthest core stop, and a tide miscalculation risks a long stranded wait."
+28,ZoneSpecific,Netidhopani,DuringTrip,Wildlife,"Avoid the overgrown ruins-adjacent areas — known snake habitat, especially after rain."
+29,ZoneSpecific,Jharkhali,DuringTrip,Transport,Confirm private/shared vehicle arrangements in advance if combining road and boat access.
+30,ZoneSpecific,Gosaba,BeforeTrip,Connectivity,Note this is the last point with reliable network before the forest zones — send any pending messages here.
+31,ZoneSpecific,Pakhiralay,DuringTrip,Terrain,Jetty paths can be slippery after rain — take care during homestay arrival/departure.
+32,ZoneSpecific,Dayapur,DuringTrip,Tide,Boat-only access here means tide timing directly affects arrival and departure — confirm before planning a sunset visit.
+33,ZoneSpecific,Gadkhali,BeforeTrip,Departure,"Reconfirm your boat departure slot here, since it's tide-scheduled and the main organized departure point for tours."
+34,ZoneSpecific,Panchamukhani,DuringTrip,Navigation,"This is a well-known point of route confusion (five converging channels) — never let the boat separate from a known, licensed boatman here."
+35,ZoneSpecific,Panchamukhani,DuringTrip,Weather,This open confluence is highly exposed to sudden wind/weather shifts — avoid lingering here if a storm is forecast.

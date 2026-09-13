@@ -1,0 +1,12 @@
+@"
+.env
+.venv/
+safetrail_env/
+venv/
+__pycache__/
+*.pyc
+faiss_hazard_index/
+chroma_hazard_db/
+.DS_Store
+Thumbs.db
+"@ | Out-File -FilePath .gitignore -Encoding ASCII
