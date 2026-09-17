@@ -15,8 +15,10 @@ from langchain_community.vectorstores import FAISS
 load_dotenv(override=True)
 GROQ_API_KEY = os.getenv("GROQ_API_KEY").strip()
 
-HAZARD_DIR = r"C:\Users\nilad\OneDrive\Desktop\المستندات\Smart Travel\hazard"
-FAISS_PATH = r"C:\SmartTravelData\faiss_hazard_index"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+HAZARD_DIR = os.path.join(BASE_DIR, "..", "hazard")
+FAISS_PATH = os.path.join(BASE_DIR, "faiss_hazard_index")
 
 _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
