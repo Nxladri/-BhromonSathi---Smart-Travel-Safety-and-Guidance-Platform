@@ -10,3 +10,4 @@ chroma_hazard_db/
 .DS_Store
 Thumbs.db
 "@ | Out-File -FilePath .gitignore -Encoding ASCII
+*.csv

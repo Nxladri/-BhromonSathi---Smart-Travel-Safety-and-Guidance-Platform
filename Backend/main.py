@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
+import psycopg2
 from pydantic import BaseModel
 from database import get_db_connection
-import pyodbc
 import requests
 import math
 import difflib
@@ -149,7 +149,7 @@ def get_risk_assessment(zone: str, month: str):
         query = """
             SELECT LocationName, Months, AvgRainfall, AvgWindSpeed, RainfallRisk, WindRisk, YearsOfData
             FROM ZoneRiskByMonth
-            WHERE LocationName = ? AND Months = ?"""
+            WHERE LocationName = %s AND Months = %s"""
 
 
         cursor.execute(query, (zone, month))
@@ -158,29 +158,32 @@ def get_risk_assessment(zone: str, month: str):
 
         if not row:
             raise HTTPException(status_code=404, detail=f"Risk assessment not found for the specified '{zone}' and '{month}'.")
-        rain_risk = row.RainfallRisk
-        wind_risk = row.WindRisk
+
+
+        # CHANGED: psycopg2 returns plain tuples, not named-attribute rows like pyodbc did.
+        # Access by position instead of row.ColumnName — order matches your SELECT exactly.
+        location_name, months, avg_rainfall, avg_wind_speed, rain_risk, wind_risk, years_of_data = row
 
         # Determine combined risk based on rainfall and wind risk
         risk_priority = {"Low": 1, "Medium": 2, "High": 3}
         combined_risk = max(rain_risk, wind_risk, key=lambda x: risk_priority.get(x, 0))
 
         response = {
-            "zone": row.LocationName,
-            "month": row.Months,
-            "avg_rainfall": row.AvgRainfall,
-            "avg_wind_speed": row.AvgWindSpeed,
+            "zone": location_name,
+            "month": months,
+            "avg_rainfall": avg_rainfall,
+            "avg_wind_speed": avg_wind_speed,
             "rainfall_risk": rain_risk,
             "wind_risk": wind_risk,
             "combined_risk": combined_risk,
-            "years_of_data": row.YearsOfData
+            "years_of_data": years_of_data
         }
 
         if resolution['message']:
             response["notice"] = resolution['message']
             response["match_type"] = resolution['match_type']
         return response
-    except pyodbc.Error as e:
+    except psycopg2.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 
@@ -199,7 +202,7 @@ def get_precautions(zone: str):
         query = """
             SELECT PrecautionID, ScopeType, Phase, Category, Description
             FROM safety_precautions
-            WHERE ScopeType = 'General' OR LocationName = ?
+            WHERE ScopeType = 'General' OR LocationName = %s
             ORDER BY
                 CASE Phase
                     WHEN 'BeforeTrip' THEN 1
@@ -208,10 +211,10 @@ def get_precautions(zone: str):
                 END,
                 ScopeType DESC
         """
-        cursor.execute(query, resolved_zone)
+        cursor.execute(query, (resolved_zone,))
         rows = cursor.fetchall()
         conn.close()
-    except pyodbc.Error as e:
+    except psycopg2.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
  
     if not rows:
@@ -219,11 +222,11 @@ def get_precautions(zone: str):
  
     return [
         {
-            "precaution_id": row.PrecautionID,
-            "scope_type": row.ScopeType,
-            "phase": row.Phase,
-            "category": row.Category,
-            "description": row.Description,
+            "precaution_id": row[0],
+            "scope_type": row[1],
+            "phase": row[2],
+            "category": row[3],
+            "description": row[4],
         }
         for row in rows
     ]
@@ -242,7 +245,7 @@ def get_emergency_centers():
         cursor.execute(query)
         rows = cursor.fetchall()
         conn.close()
-    except pyodbc.Error as e:
+    except psycopg2.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
     if not rows:
@@ -250,10 +253,10 @@ def get_emergency_centers():
 
     return [
         {
-            "center_id": row.CenterID,
-            "center_name": row.CenterName,
-            "center_type": row.CenterType,
-            "nearest_location_name": row.NearestLocationName,
+            "center_id": row[0],
+            "center_name": row[1],
+            "center_type": row[2],
+            "nearest_location_name": row[3],
         }
         for row in rows
     ]
